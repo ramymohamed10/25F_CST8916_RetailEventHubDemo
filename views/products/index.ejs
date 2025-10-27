@@ -1,3 +1,11 @@
+<!-- 
+    index.ejs (Products Page)
+    =========================
+    This EJS template displays all products in a grid layout.
+    It uses Bootstrap for styling and EJS tags (<% %>) 
+    to dynamically insert data passed from the server.
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,37 +13,64 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Products</title>
+
+    <!-- Include Bootstrap CSS for layout and styling -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
+    <!-- 
+        Navigation bar at the top of the page
+        Shows links to Home and Products pages
+    -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand" href="/">🛒 Retail Store</a>
+
             <div class="collapse navbar-collapse">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="/products">Products</a></li>
+                <ul class="navbar-nav ms-auto"> <!-- Push links to the right -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <!-- 'active' class highlights the current page -->
+                        <a class="nav-link active" href="/products">Products</a>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
 
+    <!-- Main content container -->
     <div class="container mt-4">
         <h1 class="mb-4">Our Products</h1>
 
+        <!-- 
+            Display success message if one exists in the session.
+            For example, after adding an item to the cart.
+        -->
         <% if (message) { %>
             <div class="alert alert-success alert-dismissible fade show">
+                <!-- Print the message from the server -->
                 <%= message %>
+                    <!-- Button to close the alert -->
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             </div>
             <% } %>
 
+                <!-- 
+            Display all products in a grid (3 per row using Bootstrap's .col-md-4)
+            products is an array passed from the route handler in products.js
+        -->
                 <div class="row">
                     <% products.forEach(product=> { %>
                         <div class="col-md-4 mb-4">
+                            <!-- Bootstrap card for each product -->
                             <div class="card h-100">
+                                <!-- Product image -->
                                 <img src="<%= product.imageUrl %>" class="card-img-top" alt="<%= product.name %>">
+
+                                <!-- Card body: product details -->
                                 <div class="card-body">
                                     <h5 class="card-title">
                                         <%= product.name %>
@@ -43,15 +78,24 @@
                                     <p class="card-text">
                                         <%= product.description %>
                                     </p>
-                                    <p class="card-text"><strong>$<%= product.price.toFixed(2) %></strong></p>
+                                    <p class="card-text">
+                                        <strong>$<%= product.price.toFixed(2) %></strong>
+                                    </p>
                                     <span class="badge bg-secondary">
                                         <%= product.category %>
                                     </span>
                                 </div>
+
+                                <!-- Card footer: action buttons -->
                                 <div class="card-footer">
+                                    <!-- Link to view product details -->
                                     <a href="/products/<%= product.id %>" class="btn btn-primary btn-sm">View</a>
+
+                                    <!-- Form to add product to cart -->
                                     <form action="/products/<%= product.id %>/addToCart" method="POST" class="d-inline">
-                                        <button type="submit" class="btn btn-success btn-sm">Add to Cart</button>
+                                        <button type="submit" class="btn btn-success btn-sm">
+                                            Add to Cart
+                                        </button>
                                     </form>
                                 </div>
                             </div>
@@ -60,7 +104,9 @@
                 </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Include Bootstrap JS bundle for interactivity (e.g., alerts) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
+    </script>
 </body>
 
 </html>
