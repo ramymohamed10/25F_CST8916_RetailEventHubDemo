@@ -96,15 +96,15 @@ npm start
    - **Name:** `retail-app-[yourname]-[3digits]` (must be globally unique)
      - Example: `retail-app-smith-123`
    - **Publish:** `Code`
-   - **Runtime stack:** `Node 18 LTS`
+   - **Runtime stack:** `Node 20 LTS`
    - **Operating System:** `Linux`
-   - **Region:** Same as your resource group (e.g., East US)
+   - **Region:** Same as your resource group
    
    **App Service Plan:**
    - Click "Create new"
    - **Name:** `plan-retail-lab`
    - **Pricing plan:** Click "Explore pricing plans"
-     - Select **Basic B1** (or Free F1 for testing)
+     - Select  Free F1
      - Click "Select"
 
 3. **Review and Create:**
